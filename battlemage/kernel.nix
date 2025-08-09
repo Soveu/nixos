@@ -17,9 +17,10 @@ let
   );
 
   linux_drm_tip = pkgs.callPackage linux_drm_tip_pkg {};
+  finalPackage = pkgs.recurseIntoAttrs (pkgs.linuxPackagesFor linux_drm_tip);
 in
 {
-  boot.kernelPackages = pkgs.recurseIntoAttrs (pkgs.linuxPackagesFor linux_drm_tip);
+  boot.kernelPackages = finalPackage;
   # boot.kernelPackages = pkgs.linuxPackages_latest;
 
   # Force early loading of drivers for better boot experience
