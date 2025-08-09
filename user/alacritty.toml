@@ -1,0 +1,42 @@
+[[keyboard.bindings]]
+action = "ToggleFullscreen"
+key = "F11"
+
+[colors.bright]
+black = "#7f7f7f"
+blue = "#aaaaff"
+cyan = "#88ffff"
+green = "#88ff88"
+magenta = "#ffaaff"
+red = "#ff8888"
+white = "#ffffff"
+yellow = "#dddd00"
+
+[colors.normal]
+black = "#555555"
+blue = "#4e4eff"
+cyan = "#00dddd"
+green = "#00ff00"
+magenta = "#ff00ff"
+red = "#ff1111"
+white = "#e5e5e5"
+yellow = "#cdcd00"
+
+[colors.primary]
+background = "#000000"
+foreground = "#ffffff"
+
+[cursor.style]
+blinking = "Off"
+shape = "Block"
+
+[font]
+size = 10.0
+
+[font.normal]
+family = "Terminus"
+
+[window]
+startup_mode = "Windowed"
+
+[keyboard]
