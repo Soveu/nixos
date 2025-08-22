@@ -20,8 +20,8 @@ let
   finalPackage = pkgs.recurseIntoAttrs (pkgs.linuxPackagesFor linux_drm_tip);
 in
 {
-  boot.kernelPackages = finalPackage;
-  # boot.kernelPackages = pkgs.linuxPackages_latest;
+  # boot.kernelPackages = finalPackage;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
 
   # Force early loading of drivers for better boot experience
   # boot.plymouth.enable = true;

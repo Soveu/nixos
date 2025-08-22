@@ -1,15 +1,13 @@
 {
-  pkgs,
   lib,
+  llvmPackages,
+  origMesa,
   ...
 }:
 let
-  galliumDrivers = [ "zink" ];
+  galliumDrivers = [ "iris" ]; # ideally, we want to use only zink
   eglPlatforms = [ "x11" "wayland" ];
-  vulkanDrivers = [
-    "intel"
-    "swrast"
-  ];
+  vulkanDrivers = [ "intel" ];
 
   # default
   vulkanLayers = [
@@ -30,6 +28,7 @@ let
     (lib.mesonOption "gallium-drivers" (lib.concatStringsSep "," galliumDrivers))
     (lib.mesonOption "vulkan-drivers" (lib.concatStringsSep "," vulkanDrivers))
     (lib.mesonOption "vulkan-layers" (lib.concatStringsSep "," vulkanLayers))
+    (lib.mesonOption "clang-libdir" "${lib.getLib llvmPackages.clang-unwrapped}/lib")
 
     # You have Battlemage, right?
     (lib.mesonEnable "intel-rt" true)
@@ -39,7 +38,21 @@ let
     (lib.mesonEnable "gallium-va" false)
     (lib.mesonEnable "android-libbacktrace" false)
   ];
+
+  outputs = ["out"];
+  patches = [./new-mesa-patch.diff];
+
+  src = builtins.fetchGit /var/stuff/foss/mesa;
+  version = "25.3.0-devel";
 in
-pkgs.mesa.overrideAttrs {
+origMesa.overrideAttrs {
+  inherit src;
+  inherit version;
+  inherit patches;
+
   inherit mesonFlags;
+  inherit outputs;
+
+  postInstall = null;
+  env.MESON_PACKAGE_CACHE_DIR = "";
 }
