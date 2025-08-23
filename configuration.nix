@@ -12,13 +12,22 @@
     ./no32bit.nix
   ];
 
-  nixpkgs.config.allowUnfreePredicate = pkg:
+  nixpkgs.overlays = [ (final: prev: {
+    gdm = prev.gdm.overrideAttrs (old: {
+      mesonFlags = old.mesonFlags or [] ++ [
+        (lib.mesonOption "run-dir" "/run/gdm")
+      ];
+    });
+  })];
+
+  nixpkgs.config.allowUnfreePredicate = (pkg:
     builtins.elem (lib.getName pkg) [
       "steam"
       "steam-original"
       "steam-unwrapped"
       "steam-run"
-    ];
+    ]
+  );
 
   programs.obs-studio.enable = true;
   programs.steam.enable = true;
