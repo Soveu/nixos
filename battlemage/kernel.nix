@@ -4,7 +4,76 @@
   ...
 }:
 let
-  version = "6.17.0-rc2";
+  version = "6.17.0-rc4";
+
+  unused_config_fields = [
+    "AIC79XX_DEBUG_ENABLE"
+    "AIC7XXX_DEBUG_ENABLE"
+    "AIC94XX_DEBUG"
+    "ATH10K_DFS_CERTIFIED"
+    "ATH9K_AHB"
+    "ATH9K_DFS_CERTIFIED"
+    "ATH9K_PCI"
+    "B43_PHY_HT"
+    "BRCMFMAC_PCIE"
+    "BRCMFMAC_USB"
+    "BT_HCIBTUSB_AUTOSUSPEND"
+    "BT_HCIBTUSB_MTK"
+    "BT_HCIUART"
+    "BT_HCIUART_BCM"
+    "BT_HCIUART_BCSP"
+    "BT_HCIUART_H4"
+    "BT_HCIUART_LL"
+    "BT_HCIUART_QCA"
+    "BT_HCIUART_SERDEV"
+    "BT_QCA"
+    "BT_RFCOMM_TTY"
+    "CFG80211_CERTIFICATION_ONUS"
+    "CFG80211_DEBUGFS"
+    "CFG80211_WEXT"
+    "CRC32_SELFTEST"
+    "CRYPTO_TEST"
+    "DRM_AMD_ACP"
+    "DRM_AMD_DC_FP"
+    "DRM_AMD_DC_SI"
+    "DRM_AMDGPU_CIK"
+    "DRM_AMDGPU_SI"
+    "DRM_AMDGPU_USERPTR"
+    "DRM_AMD_ISP"
+    "DRM_AMD_SECURE_DISPLAY"
+    "DRM_I915_GVT"
+    "DRM_I915_GVT_KVMGT"
+    "DRM_NOUVEAU_GSP_DEFAULT"
+    "DRM_NOUVEAU_SVM"
+    "HAVA_PATA_PLATFORM"
+    "HSA_AMD"
+    "IPW2100_MONITOR"
+    "IPW2200_MONITOR"
+    "MAC80211_DEBUGFS"
+    "MAC80211_MESH"
+    "MEGARAID_NEWGEN"
+    "NET_FC"
+    "NVIDIA_SHIELD_FF"
+    "POWER_RESET_GPIO"
+    "POWER_RESET_GPIO_RESTART"
+    "REISERFS_FS_POSIX_ACL"
+    "REISERFS_FS_SECURITY"
+    "REISERFS_FS_XATTR"
+    "RT2800USB_RT53XX"
+    "RT2800USB_RT55XX"
+    "RTL8XXXU_UNTESTED"
+    "RTW88"
+    "RTW88_8822BE"
+    "RTW88_8822CE"
+    "SATA_HOST"
+    "SATA_MOBILE_LPM_POLICY"
+    "SCSI_SAS_ATA"
+  ];
+
+  unused = lib.lists.foldr
+    (item: acc: (acc // { "${item}" = lib.mkForce lib.kernel.unset; }))
+    {}
+    unused_config_fields;
 
   linux_drm_tip_pkg = { buildLinux, ... } @ args: (
     buildLinux (args // {
@@ -16,9 +85,6 @@ let
       extraMeta.branch = "drm-tip";
 
       structuredExtraConfig = with lib.kernel; {
-        # Does not exist
-        DRM_NOUVEAU_GSP_DEFAULT = lib.mkForce unset;
-
         # Remove unneeded video drivers
         DRM_AMDGPU = no;
         DRM_RADEON = no;
@@ -32,21 +98,89 @@ let
         WLAN = no;
         ATA = no;
         SATA_HOST = no;
-        SCSI = no;
+        # SCSI = no; # USB depends on it
         HAVA_PATA_PLATFORM = no;
-      };
+      } // unused;
     } // (args.argsOverride or {}))
   );
 
   linux_drm_tip = pkgs.callPackage linux_drm_tip_pkg {};
   finalPackage = pkgs.recurseIntoAttrs (pkgs.linuxPackagesFor linux_drm_tip);
+
+  undefault_kmod_names = [
+    "ahci"
+
+    "ata_piix"
+
+    "sata_inic162x"
+    "sata_nv"
+    "sata_promise"
+    "sata_qstor"
+    "sata_sil"
+    "sata_sil24"
+    "sata_sis"
+    "sata_svw"
+    "sata_sx4"
+    "sata_uli"
+    "sata_via"
+    "sata_vsc"
+
+    "pata_ali"
+    "pata_amd"
+    "pata_artop"
+    "pata_atiixp"
+    "pata_efar"
+    "pata_hpt366"
+    "pata_hpt37x"
+    "pata_hpt3x2n"
+    "pata_hpt3x3"
+    "pata_it8213"
+    "pata_it821x"
+    "pata_jmicron"
+    "pata_marvell"
+    "pata_mpiix"
+    "pata_netcell"
+    "pata_ns87410"
+    "pata_oldpiix"
+    "pata_pcmcia"
+    "pata_pdc2027x"
+    "pata_qdi"
+    "pata_rz1000"
+    "pata_serverworks"
+    "pata_sil680"
+    "pata_sis"
+    "pata_sl82c105"
+    "pata_triflex"
+    "pata_via"
+    "pata_winbond"
+
+    # "3w-9xxx"
+    # "3w-xxxx"
+    # "aic79xx"
+    # "aic7xxx"
+    # "arcmsr"
+    # "hpsa"
+    # "sd_mod"
+    # "sr_mod"
+  ];
+
+  undefault_kmods = lib.lists.foldr
+    (item: acc: (acc // { "${item}" = lib.mkForce false; }))
+    {}
+    undefault_kmod_names ;
 in
 {
   boot.kernelPackages = finalPackage;
+  boot.kernelModules = undefault_kmods;
+  boot.initrd.availableKernelModules = undefault_kmods;
   # boot.kernelPackages = pkgs.linuxPackages_latest;
 
   # Force early loading of drivers for better boot experience
   # boot.plymouth.enable = true;
-  boot.initrd.kernelModules = [ "xe" "usbhid" ];
+  boot.initrd.kernelModules = {
+    "xe" = true;
+    "usbhid" = true;
+  } // undefault_kmods;
+
   boot.kernelParams = ["plymouth.use-simpledrm=0"];
 }

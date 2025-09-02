@@ -32,6 +32,7 @@ in
   ];
 
   environment.systemPackages = with pkgs; [
+    eog
     gitFull
     wget
     openssl
@@ -105,7 +106,7 @@ in
       pkgs.vulkan-tools
 
       pkgs.gcc14
-      pkgs.python314Full
+      pkgs.python3
       pkgs.rustup
     ];
 

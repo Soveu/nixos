@@ -12,14 +12,6 @@
     ./no32bit.nix
   ];
 
-  nixpkgs.overlays = [ (final: prev: {
-    gdm = prev.gdm.overrideAttrs (old: {
-      mesonFlags = old.mesonFlags or [] ++ [
-        (lib.mesonOption "run-dir" "/run/gdm")
-      ];
-    });
-  })];
-
   nixpkgs.config.allowUnfreePredicate = (pkg:
     builtins.elem (lib.getName pkg) [
       "steam"
