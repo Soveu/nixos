@@ -182,5 +182,8 @@ in
     "usbhid" = true;
   } // undefault_kmods;
 
-  boot.kernelParams = ["plymouth.use-simpledrm=0"];
+  boot.kernelParams = [
+    "plymouth.use-simpledrm=0"
+    "split_lock_detect=off"
+  ];
 }

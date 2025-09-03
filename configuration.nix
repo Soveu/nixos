@@ -22,7 +22,10 @@
   );
 
   programs.obs-studio.enable = true;
-  programs.steam.enable = true;
+  programs.steam = {
+    enable = true;
+    extraPackages = [ pkgs.mangohud ];
+  };
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
