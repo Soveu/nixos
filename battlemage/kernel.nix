@@ -6,7 +6,7 @@
 let
   version = "6.17.0-rc4";
 
-  unused_config_fields = [
+  _force_unset = [
     "AIC79XX_DEBUG_ENABLE"
     "AIC7XXX_DEBUG_ENABLE"
     "AIC94XX_DEBUG"
@@ -70,10 +70,47 @@ let
     "SCSI_SAS_ATA"
   ];
 
-  unused = lib.lists.foldr
+  force_unset = lib.lists.foldr
     (item: acc: (acc // { "${item}" = lib.mkForce lib.kernel.unset; }))
     {}
-    unused_config_fields;
+    _force_unset;
+
+  _force_no = [
+    "AGP"
+    # "CHROME_PLATFORMS"
+    # "MEDIA_ANALOG_TV_SUPPORT"
+    # "MEDIA_DIGITAL_TV_SUPPORT"
+    # "MEDIA_RADIO_SUPPORT"
+    # "MEDIA_ATTACH"
+    # "MEDIA_TUNER"
+    # "FIREWIRE"
+    # "DVB_CORE"
+    # "VIDEO_TUNER"
+    # "SURFACE_PLATFORMS"
+    # "X86_PLATFORM_DRIVERS_DELL"
+    # "X86_PLATFORM_DRIVERS_HP"
+    # "X86_PLATFORM_DRIVERS_LENOVO"
+    # "X86_PLATFORM_DRIVERS_TUXEDO"
+    # "X86_PLATFORM_DRIVERS_SIEMENS"
+    # "X86_ANDROID_TABLETS"
+    # "COMPAL_LAPTOP"
+    # "LG_LAPTOP"
+    # "PANASONIC_LAPTOP"
+    # "SONY_LAPTOP"
+    # "TOPSTAR_LAPTOP"
+    # "X86_EXTENDED_PLATFORM"
+    # "XEN"
+    # "SLAB_FREELIST_HARDENED"
+    # "NFS_FS"
+    # "GREYBUS"
+    # "COMEDI"
+    # "USB_GADGET"
+  ];
+
+  force_no = lib.lists.foldr
+    (item: acc: (acc // { "${item}" = lib.mkForce lib.kernel.no; }))
+    {}
+    _force_no;
 
   linux_drm_tip_pkg = { buildLinux, ... } @ args: (
     buildLinux (args // {
@@ -85,6 +122,15 @@ let
       extraMeta.branch = "drm-tip";
 
       structuredExtraConfig = with lib.kernel; {
+        # Faster boot
+        # USB_KBD = yes;
+        # DRM_XE = yes;
+
+        # Better perf
+        NTSYNC = yes;
+        # BPF_JIT_ALWAYS_ON = lib.mkForce yes;
+        # RCU_BOOST = yes; # unused option???
+
         # Remove unneeded video drivers
         DRM_AMDGPU = no;
         DRM_RADEON = no;
@@ -100,7 +146,12 @@ let
         SATA_HOST = no;
         # SCSI = no; # USB depends on it
         HAVA_PATA_PLATFORM = no;
-      } // unused;
+
+        # MITIGATION_xxx
+      }
+      // force_no
+      // force_unset;
+
     } // (args.argsOverride or {}))
   );
 
@@ -185,5 +236,6 @@ in
   boot.kernelParams = [
     "plymouth.use-simpledrm=0"
     "split_lock_detect=off"
+    "page_poison=0"
   ];
 }
