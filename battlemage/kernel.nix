@@ -158,8 +158,7 @@ let
       extraMeta.branch = "drm-tip";
 
       structuredExtraConfig = with lib.kernel; {
-        # Faster boot
-        # USB_KBD = yes;
+        # Probably this will need more "yes" options instead of "module" for DRM.
         # DRM_XE = yes;
 
         # Better perf
@@ -266,7 +265,6 @@ in
   # boot.plymouth.enable = true;
   boot.initrd.kernelModules = {
     "xe" = true;
-    "usbhid" = true;
   } // undefault_kmods;
 
   boot.kernelParams = [

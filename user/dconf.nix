@@ -23,20 +23,6 @@ with lib.hm.gvariant;
       secondary-color = "#000000";
     };
 
-    "org/gnome/desktop/break-reminders" = {
-      selected-breaks = [ "eyesight" ];
-    };
-
-    "org/gnome/desktop/break-reminders/eyesight" = {
-      play-sound = true;
-    };
-
-    "org/gnome/desktop/break-reminders/movement" = {
-      duration-seconds = mkUint32 300;
-      interval-seconds = mkUint32 1800;
-      play-sound = true;
-    };
-
     "org/gnome/desktop/input-sources" = {
       sources = [ (mkTuple [ "xkb" "pl" ]) ];
       xkb-options = [ "terminate:ctrl_alt_bksp" ];
