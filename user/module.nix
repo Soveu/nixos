@@ -7,10 +7,6 @@ let
   username = config.soveu.username;
 in
 {
-  imports = [
-    <home-manager/nixos>
-  ];
-  
   nix.gc = {
     persistent = true;
     dates = "weekly";
@@ -55,63 +51,5 @@ in
   users.groups."dummyGroup" = {
     gid = 1000;
     members = [ username ];
-  };
-  home-manager.useUserPackages = true;
-  home-manager.useGlobalPkgs = true;
-  home-manager.verbose = true;
-  home-manager.backupFileExtension = "bak";
-
-  home-manager.users."${username}" = {
-    imports = [
-      ./dconf.nix
-      ./vim.nix
-    ];
-
-    programs.fish = {
-      enable = true;
-      shellAbbrs = {
-        ":q" = "exit";
-      };
-    };
-
-    home.packages = [
-      pkgs.ungoogled-chromium
-      pkgs.libreoffice
-      pkgs.vlc
-      pkgs.gnome-secrets
-      pkgs.gnome-characters
-      pkgs.gnome-tweaks
-
-      pkgs.alacritty
-      pkgs.btop
-      pkgs.gitFull
-      pkgs.gimp3-with-plugins
-      pkgs.gdb
-      pkgs.ripgrep
-      pkgs.nixfmt-rfc-style
-      pkgs.dpkg
-      pkgs.man-pages-posix
-      pkgs.vulkan-tools
-
-      pkgs.gcc14
-      pkgs.python3
-      pkgs.rustup
-    ];
-
-    programs.git = {
-      enable = true;
-      package = pkgs.gitFull;
-      lfs.enable = true;
-
-      extraConfig = {
-        fetch.recurseSubmodules = false;
-        diff.tool = "vimdiff";
-        core.editor = "vim";
-      };
-    };
-
-    home.file.".config/alacritty/alacritty.toml".source = ./alacritty.toml;
-
-    home.stateVersion = "25.05";
   };
 }
