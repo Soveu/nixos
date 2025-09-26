@@ -34,6 +34,7 @@ in
       pkgs.ungoogled-chromium
       pkgs.libreoffice
       pkgs.vlc
+      pkgs.helvum
       pkgs.gnome-secrets
       pkgs.gnome-characters
       pkgs.gnome-tweaks
