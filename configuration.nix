@@ -7,13 +7,14 @@
 {
   imports = [
     ./hardware-workarounds.nix
-    ./user/module.nix
     ./battlemage/module.nix
 
     ./modules/config.nix
     ./modules/desktop.nix
     ./modules/home/module.nix
     ./modules/no32bit.nix
+    ./modules/system-packages.nix
+    ./modules/user.nix
   ];
 
   soveu = {
