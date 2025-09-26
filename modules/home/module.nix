@@ -50,7 +50,7 @@ in
       pkgs.man-pages-posix
       pkgs.vulkan-tools
 
-      pkgs.gcc14
+      pkgs.gcc15
       pkgs.python3
       pkgs.rustup
     ];
