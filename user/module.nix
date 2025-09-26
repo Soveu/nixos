@@ -1,9 +1,10 @@
 {
+  config,
   pkgs,
   ...
 }:
 let
-  username = "soveu";
+  username = config.soveu.username;
 in
 {
   imports = [
@@ -17,19 +18,6 @@ in
   };
 
   services.fwupd.enable = true;
-  services.displayManager.autoLogin.enable = true;
-  services.displayManager.autoLogin.user = username;
-
-  fonts.enableDefaultPackages = true;
-  fonts.packages = with pkgs; [
-    nerd-fonts.commit-mono
-    nerd-fonts.caskaydia-mono
-    nerd-fonts.hasklug
-    nerd-fonts.im-writing
-    nerd-fonts.ubuntu-mono
-    source-code-pro
-    terminus_font
-  ];
 
   environment.systemPackages = with pkgs; [
     eog

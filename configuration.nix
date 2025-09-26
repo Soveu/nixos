@@ -2,24 +2,27 @@
   config,
   pkgs,
   lib,
-  ... 
+  ...
 }:
 {
   imports = [
     ./hardware-workarounds.nix
     ./user/module.nix
     ./battlemage/module.nix
-    ./no32bit.nix
+    ./modules/config.nix
+    ./modules/desktop.nix
+    ./modules/no32bit.nix
   ];
 
-  nixpkgs.config.allowUnfreePredicate = (pkg:
-    builtins.elem (lib.getName pkg) [
+  soveu = {
+    username = "soveu";
+    unfreePackages = [
       "steam"
       "steam-original"
       "steam-unwrapped"
       "steam-run"
-    ]
-  );
+    ];
+  };
 
   programs.obs-studio.enable = true;
   programs.steam = {
@@ -30,30 +33,6 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   networking.hostName = "gaming";
-  networking.networkmanager.enable = true;
-
-  time.timeZone = "Europe/Warsaw";
-  i18n.defaultLocale = "en_US.UTF-8";
-
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome.enable = true;
-  services.xserver.libinput.enable = true;
-
-  console.keyMap = "pl2";
-  services.xserver.enable = false;
-  services.xserver.xkb = {
-    layout = "pl";
-    variant = "";
-  };
-
-  # Enable sound with pipewire.
-  services.pulseaudio.enable = false;
-  security.rtkit.enable = true;
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    pulse.enable = true;
-  };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
