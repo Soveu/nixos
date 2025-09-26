@@ -64,10 +64,7 @@ in
   boot.kernelPackages = finalPackage;
   boot.kernelModules = undefault_kmods;
   boot.initrd.availableKernelModules = undefault_kmods;
-  # boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  # Force early loading of drivers for better boot experience
-  # boot.plymouth.enable = true;
   boot.initrd.kernelModules = {
     "xe" = true;
   } // undefault_kmods;
