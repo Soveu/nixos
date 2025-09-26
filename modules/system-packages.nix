@@ -4,6 +4,7 @@
   ...
 }:
 {
+  security.sudo-rs.enable = true;
   services.fwupd.enable = true;
 
   environment.systemPackages = with pkgs; [
