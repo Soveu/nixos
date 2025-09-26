@@ -4,7 +4,7 @@
   ...
 }:
 let
-  version = "6.17.0-rc4";
+  version = "6.17.0-rc7";
 
   _force_unset = [
     "AIC79XX_DEBUG_ENABLE"
@@ -387,8 +387,6 @@ let
         SATA_HOST = no;
         # SCSI = no; # USB depends on it
         HAVA_PATA_PLATFORM = no;
-
-        # MITIGATION_xxx
       }
       // force_no
       // force_unset;
@@ -396,7 +394,7 @@ let
     } // (args.argsOverride or {}))
   );
 
-  linux_drm_tip = pkgs.callPackage linux_drm_tip_pkg {};
+  linux_drm_tip = pkgs.callPackage linux_drm_tip_pkg { stdenv = pkgs.gcc15Stdenv; };
   finalPackage = pkgs.recurseIntoAttrs (pkgs.linuxPackagesFor linux_drm_tip);
 
   undefault_kmod_names = [
