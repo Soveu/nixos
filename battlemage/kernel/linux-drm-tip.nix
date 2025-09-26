@@ -12,12 +12,12 @@ let
     NTSYNC = yes;
   };
 in
-    buildLinux (args // {
-      inherit version;
-      modDirVersion = version;
-      src = builtins.fetchGit /var/stuff/foss/tip;
-      extraMeta.branch = "drm-tip";
+buildLinux (args // {
+  inherit version;
+  modDirVersion = version;
+  src = builtins.fetchGit /var/stuff/foss/tip;
+  extraMeta.branch = "drm-tip";
 
-      kernelPatches = [];
-      inherit structuredExtraConfig;
-    } // (args.argsOverride or {}))
+  kernelPatches = [];
+  inherit structuredExtraConfig;
+} // (args.argsOverride or {}))

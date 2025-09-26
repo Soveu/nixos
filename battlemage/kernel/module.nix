@@ -62,12 +62,12 @@ let
 in
 {
   boot.kernelPackages = finalPackage;
+
   boot.kernelModules = undefault_kmods;
   boot.initrd.availableKernelModules = undefault_kmods;
-
-  boot.initrd.kernelModules = {
+  boot.initrd.kernelModules = undefault_kmods // {
     "xe" = true;
-  } // undefault_kmods;
+  };
 
   boot.kernelParams = [
     "plymouth.use-simpledrm=0"
