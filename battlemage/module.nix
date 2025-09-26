@@ -17,7 +17,7 @@ let
 in
 {
   imports = [
-    ./kernel.nix
+    ./kernel/module.nix
   ];
 
   # hardware.graphics.package = lib.mkForce (pkgs.callPackage ./mesa-git/package.nix {});
