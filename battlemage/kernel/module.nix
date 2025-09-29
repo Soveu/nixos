@@ -4,7 +4,8 @@
   ...
 }:
 let
-  linux_drm_tip = pkgs.callPackage ./linux-drm-tip.nix { stdenv = pkgs.gcc15Stdenv; };
+  customStdenv = pkgs.withCFlags [ "-march=znver5" "-mtune=znver5" ] pkgs.gcc15Stdenv;
+  linux_drm_tip = pkgs.callPackage ./linux-drm-tip.nix { stdenv = customStdenv; };
   finalPackage = pkgs.recurseIntoAttrs (pkgs.linuxPackagesFor linux_drm_tip);
 
   undefault_kmod_names = [
