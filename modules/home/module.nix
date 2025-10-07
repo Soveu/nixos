@@ -35,9 +35,6 @@ in
       pkgs.libreoffice
       pkgs.vlc
       pkgs.helvum
-      pkgs.gnome-secrets
-      pkgs.gnome-characters
-      pkgs.gnome-tweaks
 
       pkgs.alacritty
       pkgs.btop

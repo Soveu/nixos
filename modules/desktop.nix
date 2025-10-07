@@ -6,6 +6,13 @@
 }:
 let
   username = config.soveu.username;
+  imageFormats = ["png" "gif" "webp" "tiff" "bmp" "avif" "jxl"];
+  imageViewer = "org.gnome.Loupe.desktop";
+
+  defaultImageApp = lib.lists.foldr
+    (item: acc: (acc // { "image/${item}" = imageViewer; }))
+    {}
+    imageFormats;
 in
 {
   time.timeZone = "Europe/Warsaw";
@@ -18,6 +25,12 @@ in
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
   services.xserver.libinput.enable = true;
+
+  # services.xserver.displayManager.gdm.enable = false;
+  # services.xserver.desktopManager.gnome.enable = false;
+  # services.displayManager.cosmic-greeter.enable = true;
+  # services.desktopManager.cosmic.enable = true;
+  # services.desktopManager.cosmic.xwayland.enable = true;
 
   console.keyMap = "pl2";
   services.xserver.enable = false;
@@ -44,4 +57,15 @@ in
     source-code-pro
     terminus_font
   ];
+
+  environment.systemPackages = [
+    pkgs.gnome-secrets
+    pkgs.gnome-characters
+    pkgs.gnome-tweaks
+    pkgs.loupe
+  ];
+
+  xdg.mime.defaultApplications = {
+    "application/pdf" = "firefox.desktop";
+  } // defaultImageApp;
 }

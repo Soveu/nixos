@@ -27,7 +27,16 @@
     ];
   };
 
-  programs.obs-studio.enable = true;
+  programs.obs-studio = {
+    enable = true;
+    plugins = with pkgs.obs-studio-plugins; [
+      obs-vkcapture
+      obs-vaapi
+      obs-pipewire-audio-capture
+      obs-gstreamer
+      input-overlay
+    ];
+  };
   programs.steam = {
     enable = true;
     extraPackages = [ pkgs.mangohud ];
