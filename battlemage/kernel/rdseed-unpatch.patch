@@ -1,0 +1,31 @@
+diff --git a/arch/x86/kernel/cpu/amd.c b/arch/x86/kernel/cpu/amd.c
+index 5d46709c58d0..c00b7572292a 100644
+--- a/arch/x86/kernel/cpu/amd.c
++++ b/arch/x86/kernel/cpu/amd.c
+@@ -1035,26 +1035,8 @@ static void init_amd_zen4(struct cpuinfo_x86 *c)
+ 	}
+ }
+ 
+-static const struct x86_cpu_id zen5_rdseed_microcode[] = {
+-	ZEN_MODEL_STEP_UCODE(0x1a, 0x02, 0x1, 0x0b00215a),
+-	ZEN_MODEL_STEP_UCODE(0x1a, 0x08, 0x1, 0x0b008121),
+-	ZEN_MODEL_STEP_UCODE(0x1a, 0x11, 0x0, 0x0b101054),
+-	ZEN_MODEL_STEP_UCODE(0x1a, 0x24, 0x0, 0x0b204037),
+-	ZEN_MODEL_STEP_UCODE(0x1a, 0x44, 0x0, 0x0b404035),
+-	ZEN_MODEL_STEP_UCODE(0x1a, 0x44, 0x1, 0x0b404108),
+-	ZEN_MODEL_STEP_UCODE(0x1a, 0x60, 0x0, 0x0b600037),
+-	ZEN_MODEL_STEP_UCODE(0x1a, 0x68, 0x0, 0x0b608038),
+-	ZEN_MODEL_STEP_UCODE(0x1a, 0x70, 0x0, 0x0b700037),
+-	{},
+-};
+-
+ static void init_amd_zen5(struct cpuinfo_x86 *c)
+ {
+-	if (!x86_match_min_microcode_rev(zen5_rdseed_microcode)) {
+-		clear_cpu_cap(c, X86_FEATURE_RDSEED);
+-		msr_clear_bit(MSR_AMD64_CPUID_FN_7, 18);
+-		pr_emerg_once("RDSEED32 is broken. Disabling the corresponding CPUID bit.\n");
+-	}
+ }
+ 
+ static void init_amd(struct cpuinfo_x86 *c)

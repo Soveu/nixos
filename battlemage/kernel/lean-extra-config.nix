@@ -114,6 +114,16 @@ let
     "XEN_PVHVM"
     "XEN_SAVE_RESTORE"
     "XEN_SYS_HYPERVISOR"
+
+    "HSA_AMD_P2P"
+    "DRM_HYPERV"
+    "FB_HYPERV"
+    "EXT3_FS_POSIX_ACL"
+    "EXT3_FS_SECURITY"
+    "ZPOOL"
+
+    "HID_HAPTIC"
+    "BCACHEFS_FS"
   ];
 
   force_unset = lib.lists.foldr
@@ -328,6 +338,8 @@ let
     "ZONEFS_FS"
     # "MISC_FILESYSTEMS" # sigh... some acpi stuff requires it
     # "VBOXSF_FS"
+
+    "HYPERV"
   ];
 
   force_no = lib.lists.foldr
