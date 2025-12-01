@@ -22,9 +22,9 @@ in
 
   services.displayManager.autoLogin.enable = true;
   services.displayManager.autoLogin.user = username;
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome.enable = true;
-  services.xserver.libinput.enable = true;
+  services.displayManager.gdm.enable = true;
+  services.desktopManager.gnome.enable = true;
+  services.libinput.enable = true;
 
   # services.xserver.displayManager.gdm.enable = false;
   # services.xserver.desktopManager.gnome.enable = false;

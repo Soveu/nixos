@@ -57,7 +57,7 @@ in
       package = pkgs.gitFull;
       lfs.enable = true;
 
-      extraConfig = {
+      settings = {
         fetch.recurseSubmodules = false;
         diff.tool = "vimdiff";
         core.editor = "vim";
