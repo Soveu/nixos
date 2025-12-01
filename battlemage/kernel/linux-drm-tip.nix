@@ -18,9 +18,10 @@ buildLinux (args // {
   src = builtins.fetchGit /var/stuff/foss/tip;
   extraMeta.branch = "drm-tip";
 
-  # kernelPatches = [ {
-  #   name = "rdseed-unpatch";
-  #   patch = ./rdseed-unpatch.patch;
-  # } ];
+  kernelPatches = [ {
+    name = "rdseed-unpatch";
+    patch = ./rdseed-unpatch.patch;
+  } ];
+
   inherit structuredExtraConfig;
 } // (args.argsOverride or {}))

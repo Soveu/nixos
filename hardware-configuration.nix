@@ -16,17 +16,19 @@
   fileSystems."/" =
     { device = "/dev/mapper/main_storage_v2-main_storage_v2--fast";
       fsType = "ext4";
+      options = [ "noatime" ];
     };
 
   fileSystems."/boot" =
     { device = "/dev/disk/by-uuid/0A49-7AE5";
       fsType = "vfat";
-      options = [ "fmask=0077" "dmask=0077" ];
+      options = [ "fmask=0077" "dmask=0077" "noatime" ];
     };
 
   fileSystems."/home" =
     { device = "/dev/mapper/luks-cafc4a9a-36a4-42cc-973b-986f9f5aaca7";
       fsType = "ext4";
+      options = [ "noatime" ];
     };
 
   boot.initrd.luks.devices."luks-cafc4a9a-36a4-42cc-973b-986f9f5aaca7".device = "/dev/mapper/main_storage_v2-main_storage_v2--home";
