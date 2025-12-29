@@ -85,4 +85,9 @@ in
   xdg.mime.defaultApplications = {
     "application/pdf" = "firefox.desktop";
   } // defaultImageApp;
+
+  services.scx = {
+    enable = true;
+    scheduler = "scx_lavd";
+  };
 }
