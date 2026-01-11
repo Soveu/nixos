@@ -4,7 +4,7 @@
   ...
 } @ args:
 let
-  version = "6.19.0-rc2";
+  version = "6.19.0-rc4";
 
   leanExtraConfig = import ./lean-extra-config.nix { inherit lib; };
 

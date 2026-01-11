@@ -69,10 +69,4 @@ in
   boot.initrd.kernelModules = undefault_kmods // {
     "xe" = true;
   };
-
-  boot.kernelParams = [
-    "plymouth.use-simpledrm=0"
-    "split_lock_detect=off"
-    "page_poison=0"
-  ];
 }
