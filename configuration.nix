@@ -11,6 +11,7 @@
 
     ./modules/config.nix
     ./modules/desktop.nix
+    ./modules/firewall.nix
     ./modules/home/module.nix
     ./modules/kernel.nix
     ./modules/no32bit.nix

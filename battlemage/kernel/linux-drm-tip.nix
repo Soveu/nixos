@@ -4,12 +4,18 @@
   ...
 } @ args:
 let
-  version = "6.19.0-rc4";
+  version = "6.19.0-rc5";
 
   leanExtraConfig = import ./lean-extra-config.nix { inherit lib; };
 
   structuredExtraConfig = with lib.kernel; leanExtraConfig // {
     NTSYNC = yes;
+
+    PREEMPT_NONE = no;
+    PREEMPT_VOLUNTARY = lib.mkForce no;
+    PREEMPT = no;
+    PREEMPT_DYNAMIC = lib.mkForce no;
+    PREEMPT_LAZY = yes;
   };
 in
 buildLinux (args // {

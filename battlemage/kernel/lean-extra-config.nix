@@ -340,14 +340,7 @@ let
     # "VBOXSF_FS"
 
     "HYPERV"
-  ];
-
-  force_no = lib.lists.foldr
-    (item: acc: (acc // { "${item}" = lib.mkForce lib.kernel.no; }))
-    {}
-    _force_no;
-
-  _soft_no = [
+    # "HOTPLUG_CPU"
     "ATA"
     "BT"
     "DRM_AMDGPU"
@@ -359,11 +352,11 @@ let
     "WLAN"
   ];
 
-  soft_no = lib.lists.foldr
-    (item: acc: (acc // { "${item}" = lib.kernel.no; }))
+  force_no = lib.lists.foldr
+    (item: acc: (acc // { "${item}" = lib.mkForce lib.kernel.no; }))
     {}
-    _soft_no;
+    _force_no;
 in
-  (force_unset // force_no // soft_no)
+  (force_unset // force_no)
 
 
