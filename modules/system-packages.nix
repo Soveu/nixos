@@ -16,6 +16,10 @@
     file
     zip
     unzip
+    powertop
+    usbutils
+    pciutils
+    libva-utils
   ];
 
   programs.fish.enable = true;

@@ -63,6 +63,8 @@ let
 in
 {
   boot.kernelPackages = finalPackage;
+  boot.blacklistedKernelModules = lib.mkDefault [ "i915" ];
+  boot.kernelParams = lib.mkDefault [ "i915.modeset=0" ];
 
   boot.kernelModules = undefault_kmods;
   boot.initrd.availableKernelModules = undefault_kmods;

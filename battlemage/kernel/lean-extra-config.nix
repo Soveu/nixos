@@ -3,6 +3,17 @@
 }:
 let
   _force_unset = [
+    "FW_LOADER_USER_HELPER_FALLBACK"
+    "DVB_DM1105"
+    "DVB_USB"
+    "LIRC"
+    "MANTIS_CORE"
+    "MEDIA_CEC_RC"
+    "VIDEO_BT848"
+    "VIDEO_CX88_DV"
+    "RC_DECODERS"
+    "RC_DEVICES"
+
     "9P_FSCACHE"
     "9P_FS_POSIX_ACL"
     "AIC79XX_DEBUG_ENABLE"
@@ -169,7 +180,6 @@ let
     "DVB_DIB7000P"
     "DVB_DIB8000"
     "DVB_DIB9000"
-    "DVB_DM1105"
     "DVB_DRX39XYJ"
     "DVB_DRXD"
     "DVB_DRXK"
@@ -256,7 +266,6 @@ let
     "DVB_TUNER_DIB0070"
     "DVB_TUNER_DIB0090"
     "DVB_TUNER_ITD1000"
-    "DVB_USB"
     "DVB_USB_V2"
     "DVB_VES1820"
     "DVB_VES1X93"
@@ -271,7 +280,6 @@ let
     "JFFS2_FS"
     "JFS_FS"
     "LG_LAPTOP"
-    "MANTIS_CORE"
     "MEDIA_TUNER_E4000"
     "MEDIA_TUNER_FC0011"
     "MEDIA_TUNER_FC0012"
@@ -326,8 +334,6 @@ let
     "TOPSTAR_LAPTOP"
     "UBIFS_FS"
     "USB_MSI2500"
-    "VIDEO_BT848"
-    "VIDEO_CX88_DVB"
     "VIDEO_SAA7134_DVB"
     "VXFS_FS"
     "X86_ANDROID_TABLETS"
@@ -338,6 +344,8 @@ let
     "ZONEFS_FS"
     # "MISC_FILESYSTEMS" # sigh... some acpi stuff requires it
     # "VBOXSF_FS"
+
+    "RC_CORE"
 
     "HYPERV"
     # "HOTPLUG_CPU"

@@ -4,11 +4,17 @@
   ...
 } @ args:
 let
-  version = "6.19.0-rc5";
+  version = "6.19.0-rc6";
 
   leanExtraConfig = import ./lean-extra-config.nix { inherit lib; };
 
   structuredExtraConfig = with lib.kernel; leanExtraConfig // {
+    # FRAMEBUFFER_CONSOLE = lib.mkForce unset;
+    # FRAMEBUFFER_CONSOLE_DEFERRED_TAKEOVER = lib.mkForce unset;
+    # FRAMEBUFFER_CONSOLE_DETECT_PRIMARY = lib.mkForce unset;
+    # FRAMEBUFFER_CONSOLE_ROTATION = lib.mkForce unset;
+    # VT = no;
+
     NTSYNC = yes;
 
     PREEMPT_NONE = no;

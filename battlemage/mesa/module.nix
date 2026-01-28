@@ -8,7 +8,7 @@ let
   mesaOverlay = (final: prev: {
     mesa = (prev.mesa.overrideAttrs {
       src = builtins.fetchGit /var/stuff/foss/mesa;
-      version = "26.0.0-devel";
+      version = "26.1.0-devel";
       buildInputs = prev.mesa.buildInputs ++ [prev.libdisplay-info];
       # patches = prev.mesa.patches ++ [ ./zink-only.patch ];
       # Remove the llvm21 patch that got merged

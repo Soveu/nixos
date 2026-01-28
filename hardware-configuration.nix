@@ -16,7 +16,7 @@
   fileSystems."/" =
     { device = "/dev/mapper/main_storage_v2-main_storage_v2--fast";
       fsType = "ext4";
-      options = [ "noatime" ];
+      options = [ "noatime" "nobarrier" "data=writeback" ];
     };
 
   fileSystems."/boot" =
