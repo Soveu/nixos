@@ -4,6 +4,11 @@
   lib,
   ...
 }:
+let
+  kilo = 1024;
+  mega = kilo * kilo;
+  giga = mega * kilo;
+in
 {
   imports = [
     ./hardware-workarounds.nix
@@ -29,6 +34,8 @@
     ];
   };
 
+  nix.settings.download-buffer-size = giga;
+
   programs.obs-studio = {
     enable = true;
     plugins = with pkgs.obs-studio-plugins; [
@@ -42,8 +49,16 @@
   programs.steam = {
     enable = true;
     extraPackages = [ pkgs.mangohud ];
+    remotePlay.openFirewall = true;
+    dedicatedServer.openFirewall = true;
+    localNetworkGameTransfers.openFirewall = true;
   };
 
+  # boot.kernelParams = [
+  #   "default_hugepagesz=1G"
+  #   "hugepagesz=1G"
+  #   "hugepages=16"
+  # ];
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   networking.hostName = "gaming";

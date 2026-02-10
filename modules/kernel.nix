@@ -35,6 +35,7 @@
   boot.kernelParams = [
     "plymouth.use-simpledrm=0"
     "plymouth.graphical"
+    "plymouth.ignore-serial-consoles"
     "plymouth.nolog"
     "quiet"
     "udev.log_priority=3"

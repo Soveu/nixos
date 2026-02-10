@@ -3,6 +3,9 @@
 }:
 let
   _force_unset = [
+    "ATA_SFF"
+    "ATA_BMDMA"
+    "DMABUF_MOVE_NOTIFY"
     "FW_LOADER_USER_HELPER_FALLBACK"
     "DVB_DM1105"
     "DVB_USB"

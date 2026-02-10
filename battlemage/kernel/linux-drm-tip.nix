@@ -4,7 +4,7 @@
   ...
 } @ args:
 let
-  version = "6.19.0-rc6";
+  version = "6.19.0";
 
   leanExtraConfig = import ./lean-extra-config.nix { inherit lib; };
 
@@ -29,11 +29,6 @@ buildLinux (args // {
   modDirVersion = version;
   src = builtins.fetchGit /var/stuff/foss/tip;
   extraMeta.branch = "drm-tip";
-
-  kernelPatches = [ {
-    name = "rdseed-unpatch";
-    patch = ./rdseed-unpatch.patch;
-  } ];
 
   inherit structuredExtraConfig;
 } // (args.argsOverride or {}))
