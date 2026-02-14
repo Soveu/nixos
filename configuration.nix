@@ -8,6 +8,27 @@ let
   kilo = 1024;
   mega = kilo * kilo;
   giga = mega * kilo;
+
+  mimallocVer = "3.2.8";
+  # mimallocVer = "2.2.7";
+  mimalloc = pkgs.mimalloc.overrideAttrs {
+    version = mimallocVer;
+    secureBuild = false;
+
+    src = pkgs.fetchFromGitHub {
+      owner = "microsoft";
+      repo = "mimalloc";
+      rev = "v${mimallocVer}";
+      hash = "sha256-tkk1hawVGqJ0hpCd0ceCQhioPv3kHMcuo5OdJD1Nq+U=";
+    };
+  };
+
+  preload = "${mimalloc}/lib/libmimalloc.so";
+  gottaGoFast = pkgs.writeShellScriptBin "gotta-go-fast"
+    ''
+      # MIMALLOC_VERBOSE=1 MIMALLOC_SHOW_ERRORS=1 MIMALLOC_ARENA_EAGER_COMMIT=1 MIMALLOC_RESERVE_HUGE_OS_PAGES=$SOVEU_HUGE LD_PRELOAD="$LD_PRELOAD:${preload}" "$@"
+      MIMALLOC_ALLOW_LARGE_OS_PAGES=1 MIMALLOC_SHOW_ERRORS=1 LD_PRELOAD="$LD_PRELOAD:${preload}" "$@"
+    '';
 in
 {
   imports = [
@@ -48,17 +69,12 @@ in
   };
   programs.steam = {
     enable = true;
-    extraPackages = [ pkgs.mangohud ];
+    extraPackages = [ pkgs.mangohud gottaGoFast ];
     remotePlay.openFirewall = true;
     dedicatedServer.openFirewall = true;
     localNetworkGameTransfers.openFirewall = true;
   };
 
-  # boot.kernelParams = [
-  #   "default_hugepagesz=1G"
-  #   "hugepagesz=1G"
-  #   "hugepages=16"
-  # ];
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   networking.hostName = "gaming";
