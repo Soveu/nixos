@@ -8,11 +8,36 @@ let
   linux_drm_tip = pkgs.callPackage ./linux-drm-tip.nix { stdenv = customStdenv; };
   finalPackage = lib.recurseIntoAttrs (pkgs.linuxPackagesFor linux_drm_tip);
 
+  # nixos/modules/system/boot/kernel.nix
   undefault_kmod_names = [
+    "af_alg"
+    "algif_skcipher"
+    "dm_crypt"
+    "pcips2"
+    "tpm-crb"
+    "tpm-tis"
+    "8250_dw"
+    "uinput"
+
+    "dm-raid"
+    "dm-snapshot"
+    "raid0"
+    "raid456"
+    "dm-mod"
+    "md-mod"
+
+    "hid_generic"
+    "hid_lenovo"
+    "hid_apple"
+    "hid_roccat"
+    "hid_logitech_hidpp"
+    "hid_logitech_dj"
+    "hid_microsoft"
+    "hid_cherry"
+    "hid_corsair"
+
     "ahci"
-
     "ata_piix"
-
     "sata_inic162x"
     "sata_nv"
     "sata_promise"
@@ -63,13 +88,12 @@ let
 in
 {
   boot.kernelPackages = finalPackage;
-  boot.blacklistedKernelModules = [ "i915" ];
-  boot.kernelParams = [ "i915.modeset=0" ];
+  # boot.kernelPackages = pkgs.linuxPackages_latest;
+  # boot.blacklistedKernelModules = [ "i915" ];
+  # boot.kernelParams = [ "i915.modeset=0" ];
   environment.systemPackages = [ finalPackage.cpupower ];
 
   boot.kernelModules = undefault_kmods;
   boot.initrd.availableKernelModules = undefault_kmods;
-  boot.initrd.kernelModules = undefault_kmods // {
-    "xe" = true;
-  };
+  boot.initrd.kernelModules = undefault_kmods;
 }

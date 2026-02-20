@@ -20,7 +20,7 @@
   ];
   boot.consoleLogLevel = 0;
 
-  boot.plymouth.enable = true;
+  # boot.plymouth.enable = true;
 
   services.kmscon = {
     enable = true;
@@ -37,8 +37,8 @@
     "plymouth.graphical"
     "plymouth.ignore-serial-consoles"
     "plymouth.nolog"
-    "quiet"
-    "udev.log_priority=3"
+    # "quiet"
+    # "udev.log_priority=3"
 
     "split_lock_detect=off"
     "page_poison=0"
