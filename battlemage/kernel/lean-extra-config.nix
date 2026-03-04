@@ -3,6 +3,9 @@
 }:
 let
   _force_unset = [
+    "GLOB_SELFTEST"
+    "HIPPI"
+
     "ATA_SFF"
     "ATA_BMDMA"
     "DMABUF_MOVE_NOTIFY"

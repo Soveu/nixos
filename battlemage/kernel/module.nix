@@ -9,6 +9,7 @@ let
   finalPackage = lib.recurseIntoAttrs (pkgs.linuxPackagesFor linux_drm_tip);
 
   undefault_kmod_names = [
+    "aes_generic" # huh?
     "ahci"
 
     "ata_piix"

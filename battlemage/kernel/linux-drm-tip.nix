@@ -4,7 +4,7 @@
   ...
 } @ args:
 let
-  version = "6.19.0";
+  version = "7.0.0-rc1";
 
   leanExtraConfig = import ./lean-extra-config.nix { inherit lib; };
 
@@ -17,9 +17,9 @@ let
 
     NTSYNC = yes;
 
-    PREEMPT_NONE = no;
-    PREEMPT_VOLUNTARY = lib.mkForce no;
-    PREEMPT = no;
+    PREEMPT_NONE = lib.mkForce unset;
+    PREEMPT_VOLUNTARY = lib.mkForce unset;
+    PREEMPT = lib.mkForce no;
     PREEMPT_DYNAMIC = lib.mkForce no;
     PREEMPT_LAZY = yes;
   };
