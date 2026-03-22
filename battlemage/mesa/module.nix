@@ -7,6 +7,7 @@
 let
   mesaOverlay = (final: prev: {
     mesa = (prev.mesa.overrideAttrs {
+      # git@ssh.gitlab.freedesktop.org:mesa/mesa.git
       src = builtins.fetchGit /var/stuff/foss/mesa;
       version = "26.1.0-devel";
       buildInputs = prev.mesa.buildInputs ++ [prev.libdisplay-info];

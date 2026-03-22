@@ -4,7 +4,7 @@
   ...
 } @ args:
 let
-  version = "7.0.0-rc2";
+  version = "7.0.0-rc4";
 
   leanExtraConfig = import ./lean-extra-config.nix { inherit lib; };
 
@@ -27,6 +27,7 @@ in
 buildLinux (args // {
   inherit version;
   modDirVersion = version;
+  # git@ssh.gitlab.freedesktop.org:drm/tip.git
   src = builtins.fetchGit /var/stuff/foss/tip;
   extraMeta.branch = "drm-tip";
 

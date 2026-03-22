@@ -34,7 +34,8 @@ in
       pkgs.ungoogled-chromium
       pkgs.libreoffice
       pkgs.vlc
-      pkgs.helvum
+      pkgs.crosspipe
+      pkgs.desmume
 
       pkgs.alacritty
       pkgs.btop
