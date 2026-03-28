@@ -14,24 +14,18 @@
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "/dev/mapper/main_storage_v2-main_storage_v2--fast";
+    { device = "/dev/mapper/p_luks";
       fsType = "ext4";
-      options = [ "noatime" "nobarrier" "data=writeback" ];
+      options = [ "noatime" "commit=60" "data=writeback" "journal_async_commit" ];
     };
+
+  boot.initrd.luks.devices."p_luks".device = "/dev/mapper/vg_main-lv_main";
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/0A49-7AE5";
+    { device = "/dev/disk/by-uuid/43ED-F8A3";
       fsType = "vfat";
-      options = [ "fmask=0077" "dmask=0077" "noatime" ];
+      options = [ "noatime" "fmask=0077" "dmask=0077" ];
     };
-
-  fileSystems."/home" =
-    { device = "/dev/mapper/luks-cafc4a9a-36a4-42cc-973b-986f9f5aaca7";
-      fsType = "ext4";
-      options = [ "noatime" ];
-    };
-
-  boot.initrd.luks.devices."luks-cafc4a9a-36a4-42cc-973b-986f9f5aaca7".device = "/dev/mapper/main_storage_v2-main_storage_v2--home";
 
   swapDevices = [ ];
 

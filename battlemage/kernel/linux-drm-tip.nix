@@ -28,7 +28,7 @@ buildLinux (args // {
   inherit version;
   modDirVersion = version;
   # git@ssh.gitlab.freedesktop.org:drm/tip.git
-  src = builtins.fetchGit /var/stuff/foss/tip;
+  src = builtins.fetchGit /stuff/foss/tip;
   extraMeta.branch = "drm-tip";
 
   inherit structuredExtraConfig;

@@ -32,7 +32,8 @@ let
 in
 {
   imports = [
-    ./hardware-workarounds.nix
+    # ./hardware-workarounds.nix
+    ./hardware-configuration.nix
     ./battlemage/module.nix
 
     ./modules/config.nix
@@ -70,7 +71,6 @@ in
   programs.steam = {
     enable = true;
     extraPackages = [ pkgs.mangohud gottaGoFast ];
-    remotePlay.openFirewall = true;
     dedicatedServer.openFirewall = true;
     localNetworkGameTransfers.openFirewall = true;
   };

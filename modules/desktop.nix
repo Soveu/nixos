@@ -17,20 +17,19 @@ in
 {
   time.timeZone = "Europe/Warsaw";
   i18n.defaultLocale = "en_US.UTF-8";
-
   networking.networkmanager.enable = true;
 
   services.displayManager.autoLogin.enable = true;
   services.displayManager.autoLogin.user = username;
-  services.displayManager.gdm.enable = true;
-  services.desktopManager.gnome.enable = true;
   services.libinput.enable = true;
+  # services.displayManager.gdm.enable = true;
+  # services.desktopManager.gnome.enable = true;
 
-  # services.xserver.displayManager.gdm.enable = false;
-  # services.xserver.desktopManager.gnome.enable = false;
-  # services.displayManager.cosmic-greeter.enable = true;
-  # services.desktopManager.cosmic.enable = true;
-  # services.desktopManager.cosmic.xwayland.enable = true;
+  services.xserver.displayManager.gdm.enable = false;
+  services.xserver.desktopManager.gnome.enable = false;
+  services.displayManager.cosmic-greeter.enable = true;
+  services.desktopManager.cosmic.enable = true;
+  services.desktopManager.cosmic.xwayland.enable = true;
 
   console.keyMap = "pl2";
   services.xserver.enable = false;
