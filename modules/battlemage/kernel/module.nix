@@ -1,11 +1,21 @@
 {
+  self,
+  inputs,
+  ...
+}:
+{
+  flake.nixosModules.battlemage-linux =
+{
   pkgs,
   lib,
   ...
 }:
 let
   customStdenv = pkgs.withCFlags [ "-march=znver5" "-mtune=znver5" ] pkgs.gcc15Stdenv;
-  linux_drm_tip = pkgs.callPackage ./linux-drm-tip.nix { stdenv = customStdenv; };
+  linux_drm_tip = pkgs.callPackage ./_linux-drm-tip.nix {
+    stdenv = customStdenv;
+    src = inputs.git-linux;
+  };
   finalPackage = lib.recurseIntoAttrs (pkgs.linuxPackagesFor linux_drm_tip);
 
   undefault_kmod_names = [
@@ -73,4 +83,5 @@ in
   boot.initrd.kernelModules = undefault_kmods // {
     "xe" = true;
   };
+};
 }

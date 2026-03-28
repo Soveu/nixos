@@ -1,4 +1,11 @@
 {
+  self,
+  inputs,
+  ...
+}:
+{
+  flake.nixosModules.kernel =
+{
   config,
   pkgs,
   lib,
@@ -7,26 +14,13 @@
 {
   boot.initrd.systemd.enable = true;
   boot.initrd.verbose = false;
-  boot.initrd.kernelModules = [
-    "atkbd"
-    "hid_generic"
-    "usbhid"
-    "hid"
-    "xhci_hcd"
-    "8250_dw"
-    "libps2"
-    "serio"
-    "uinput"
-  ];
   boot.consoleLogLevel = 0;
-
   boot.plymouth.enable = true;
 
   services.kmscon = {
     enable = true;
     hwRender = true;
   };
-
   services.scx = {
     enable = true;
     scheduler = "scx_lavd";
@@ -44,4 +38,5 @@
     "page_poison=0"
     "transparent_hugepage=always"
   ];
+};
 }

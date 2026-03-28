@@ -1,6 +1,14 @@
 {
+  self,
+  inputs,
+  ...
+}:
+{
+  flake.nixosModules.system-packages =
+{
   config,
   pkgs,
+  lib,
   ...
 }:
 {
@@ -29,4 +37,5 @@
     defaultEditor = true;
     package = pkgs.vim-full;
   };
+};
 }

@@ -1,16 +1,21 @@
 {
+  self,
+  inputs,
+  ...
+}:
+{
+  flake.nixosModules.home =
+{
   config,
   pkgs,
   lib,
   ...
 }:
 let
-  username = config.soveu.username;
+  username = "soveu";
 in
 {
-  imports = [
-    <home-manager/nixos>
-  ];
+  imports = [ inputs.home-manager.nixosModules.home-manager ];
 
   home-manager.useUserPackages = true;
   home-manager.useGlobalPkgs = true;
@@ -19,8 +24,8 @@ in
 
   home-manager.users."${username}" = {
     imports = [
-      ./dconf.nix
-      ./vim.nix
+      ./_dconf.nix
+      self.homeModules.home-vim
     ];
 
     programs.fish = {
@@ -43,7 +48,7 @@ in
       pkgs.gimp3-with-plugins
       pkgs.gdb
       pkgs.ripgrep
-      pkgs.nixfmt-rfc-style
+      pkgs.nixfmt
       pkgs.dpkg
       pkgs.man-pages-posix
       pkgs.vulkan-tools
@@ -69,4 +74,5 @@ in
 
     home.stateVersion = "25.05";
   };
+};
 }

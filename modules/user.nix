@@ -1,29 +1,29 @@
 {
+  self,
+  inputs,
+  ...
+}:
+{
+  flake.nixosModules.user =
+{
   config,
   pkgs,
+  lib,
   ...
 }:
 let
-  username = config.soveu.username;
+  username = "soveu";
 in
 {
   users.users."${username}" = {
     isNormalUser = true;
     description = username;
     initialPassword = username;
-    extraGroups = [ "networkmanager" "wheel" "dummyGroup" ];
-
-    uid = 1000;
-
+    extraGroups = [ "networkmanager" "wheel" ];
     home = "/home/${username}";
     createHome = false;
     shell = pkgs.fish;
     useDefaultShell = false;
   };
-
-  # TODO: I need to change the group of my files in /home
-  users.groups."dummyGroup" = {
-    gid = 1000;
-    members = [ username ];
-  };
+};
 }

@@ -1,7 +1,10 @@
 {
-  pkgs,
+  self,
+  inputs,
   ...
 }:
+{
+  flake.homeModules.home-vim = { config, pkgs, lib, ... }:
 {
   programs.vim = {
     enable = true;
@@ -28,4 +31,5 @@
       map <C-l> <C-W>l
     '';
   };
+};
 }

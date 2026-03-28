@@ -1,12 +1,13 @@
 {
   lib,
   buildLinux,
+  src,
   ...
 } @ args:
 let
-  version = "7.0.0-rc4";
+  version = "7.0.0-rc5";
 
-  leanExtraConfig = import ./lean-extra-config.nix { inherit lib; };
+  leanExtraConfig = import ./_lean-extra-config.nix { inherit lib; };
 
   structuredExtraConfig = with lib.kernel; leanExtraConfig // {
     # FRAMEBUFFER_CONSOLE = lib.mkForce unset;
@@ -25,10 +26,8 @@ let
   };
 in
 buildLinux (args // {
-  inherit version;
+  inherit version src;
   modDirVersion = version;
-  # git@ssh.gitlab.freedesktop.org:drm/tip.git
-  src = builtins.fetchGit /stuff/foss/tip;
   extraMeta.branch = "drm-tip";
 
   inherit structuredExtraConfig;

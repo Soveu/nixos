@@ -1,11 +1,19 @@
 {
+  self,
+  inputs,
+  ...
+}:
+{
+  flake.nixosModules.desktop =
+{
   config,
   pkgs,
   lib,
   ...
 }:
 let
-  username = config.soveu.username;
+  username = "soveu";
+  useCosmic = false; # https://github.com/NixOS/nixpkgs/pull/502494
   imageFormats = ["png" "gif" "webp" "tiff" "bmp" "avif" "jxl"];
   imageViewer = "org.gnome.Loupe.desktop";
 
@@ -22,14 +30,6 @@ in
   services.displayManager.autoLogin.enable = true;
   services.displayManager.autoLogin.user = username;
   services.libinput.enable = true;
-  # services.displayManager.gdm.enable = true;
-  # services.desktopManager.gnome.enable = true;
-
-  services.xserver.displayManager.gdm.enable = false;
-  services.xserver.desktopManager.gnome.enable = false;
-  services.displayManager.cosmic-greeter.enable = true;
-  services.desktopManager.cosmic.enable = true;
-  services.desktopManager.cosmic.xwayland.enable = true;
 
   console.keyMap = "pl2";
   services.xserver.enable = false;
@@ -37,6 +37,12 @@ in
     layout = "pl";
     variant = "";
   };
+
+  services.displayManager.gdm.enable = !useCosmic;
+  services.desktopManager.gnome.enable = !useCosmic;
+  services.displayManager.cosmic-greeter.enable = useCosmic;
+  services.desktopManager.cosmic.enable = useCosmic;
+  services.desktopManager.cosmic.xwayland.enable = useCosmic;
 
   services.pulseaudio.enable = false;
   security.rtkit.enable = true;
@@ -57,31 +63,17 @@ in
     terminus_font
   ];
 
-  # https://github.com/NixOS/nixpkgs/issues/449657
-  fonts.fontconfig.localConf = ''
-<?xml version="1.0"?>
-<!DOCTYPE fontconfig SYSTEM "urn:fontconfig:fonts.dtd">
-<fontconfig>
-  <description>Accept bitmap fonts</description>
-<!-- Accept bitmap fonts -->
- <selectfont>
-  <acceptfont>
-   <pattern>
-     <patelt name="outline"><bool>false</bool></patelt>
-   </pattern>
-  </acceptfont>
- </selectfont>
-</fontconfig>
-  '';
-
   environment.systemPackages = [
     pkgs.gnome-secrets
     pkgs.gnome-characters
+  ] ++ (if useCosmic then [] else [
     pkgs.gnome-tweaks
     pkgs.loupe
-  ];
+  ]);
 
+  # TODO: how does cosmic handle this?
   xdg.mime.defaultApplications = {
     "application/pdf" = "firefox.desktop";
   } // defaultImageApp;
+};
 }

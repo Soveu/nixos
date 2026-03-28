@@ -1,4 +1,11 @@
 {
+  self,
+  inputs,
+  ...
+}:
+{
+  flake.nixosModules.battlemage =
+{
   config,
   pkgs,
   lib,
@@ -6,8 +13,8 @@
 }:
 {
   imports = [
-    ./kernel/module.nix
-    ./mesa/module.nix
+    self.nixosModules.battlemage-mesa
+    self.nixosModules.battlemage-linux
   ];
 
   hardware.graphics.extraPackages = with pkgs; [
@@ -27,4 +34,5 @@
     intel-undervolt
     intel-gpu-tools
   ];
+};
 }
