@@ -5,28 +5,49 @@
 }:
 {
   flake.nixosModules.battlemage-mesa =
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}:
-let
-  mesaOverlay = (final: prev: {
-    mesa = (prev.mesa.overrideAttrs {
-      src = inputs.git-mesa;
-      version = "26.1.0-devel";
-      buildInputs = prev.mesa.buildInputs ++ [prev.libdisplay-info];
-    }).override {
-      stdenv = final.withCFlags [ "-march=znver5" "-mtune=znver5" ] final.gcc15Stdenv;
-      galliumDrivers = [ "iris" "llvmpipe" "zink" ] ++ [ "asahi" "panfrost" "virgl" ];
-      vulkanDrivers = [ "intel" "swrast" ] ++ [ "asahi" "panfrost" "microsoft-experimental" ];
+    {
+      config,
+      pkgs,
+      lib,
+      ...
+    }:
+    let
+      mesaOverlay = (
+        final: prev: {
+          mesa =
+            (prev.mesa.overrideAttrs {
+              src = inputs.git-mesa;
+              version = "26.1.0-devel";
+              buildInputs = prev.mesa.buildInputs ++ [ prev.libdisplay-info ];
+            }).override
+              {
+                stdenv = final.withCFlags [ "-march=znver5" "-mtune=znver5" ] final.gcc15Stdenv;
+                galliumDrivers = [
+                  "iris"
+                  "llvmpipe"
+                  "zink"
+                ]
+                ++ [
+                  "asahi"
+                  "panfrost"
+                  "virgl"
+                ];
+                vulkanDrivers = [
+                  "intel"
+                  "swrast"
+                ]
+                ++ [
+                  "asahi"
+                  "panfrost"
+                  "microsoft-experimental"
+                ];
+              };
+        }
+      );
+    in
+    {
+      nixpkgs.overlays = [
+        mesaOverlay
+      ];
     };
-  });
-in
-{
-  nixpkgs.overlays = [
-    mesaOverlay
-  ];
-};
 }

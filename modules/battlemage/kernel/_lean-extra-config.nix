@@ -144,10 +144,9 @@ let
     "BCACHEFS_FS"
   ];
 
-  force_unset = lib.lists.foldr
-    (item: acc: (acc // { "${item}" = lib.mkForce lib.kernel.unset; }))
-    {}
-    _force_unset;
+  force_unset = lib.lists.foldr (
+    item: acc: (acc // { "${item}" = lib.mkForce lib.kernel.unset; })
+  ) { } _force_unset;
 
   _force_no = [
     "ADFS_FS"
@@ -446,11 +445,8 @@ let
     "SCSI_CXGB4_ISCSI"
   ];
 
-  force_no = lib.lists.foldr
-    (item: acc: (acc // { "${item}" = lib.mkForce lib.kernel.no; }))
-    {}
-    _force_no;
+  force_no = lib.lists.foldr (
+    item: acc: (acc // { "${item}" = lib.mkForce lib.kernel.no; })
+  ) { } _force_no;
 in
-  (force_unset // force_no)
-
-
+(force_unset // force_no)

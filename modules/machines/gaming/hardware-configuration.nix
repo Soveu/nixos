@@ -5,34 +5,57 @@
 }:
 {
   flake.nixosModules.gamingHardware =
-{ config, lib, pkgs, modulesPath, ... }:
-{
-  imports =
-    [ (modulesPath + "/installer/scan/not-detected.nix")
-    ];
+    {
+      config,
+      lib,
+      pkgs,
+      modulesPath,
+      ...
+    }:
+    {
+      imports = [
+        (modulesPath + "/installer/scan/not-detected.nix")
+      ];
 
-  boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "thunderbolt" "usbhid" "usb_storage" "sd_mod" ];
-  boot.initrd.kernelModules = [ "dm-snapshot" ];
-  boot.kernelModules = [ "kvm-amd" ];
-  boot.extraModulePackages = [ ];
+      boot.initrd.availableKernelModules = [
+        "nvme"
+        "xhci_pci"
+        "ahci"
+        "thunderbolt"
+        "usbhid"
+        "usb_storage"
+        "sd_mod"
+      ];
+      boot.initrd.kernelModules = [ "dm-snapshot" ];
+      boot.kernelModules = [ "kvm-amd" ];
+      boot.extraModulePackages = [ ];
 
-  fileSystems."/" =
-    { device = "/dev/mapper/p_luks";
-      fsType = "ext4";
-      options = [ "noatime" "commit=60" "data=writeback" "journal_async_commit" ];
+      fileSystems."/" = {
+        device = "/dev/mapper/p_luks";
+        fsType = "ext4";
+        options = [
+          "noatime"
+          "commit=60"
+          "data=writeback"
+          "journal_async_commit"
+        ];
+      };
+
+      boot.initrd.luks.devices."p_luks".device = "/dev/mapper/vg_main-lv_main";
+
+      fileSystems."/boot" = {
+        device = "/dev/disk/by-uuid/43ED-F8A3";
+        fsType = "vfat";
+        options = [
+          "noatime"
+          "fmask=0077"
+          "dmask=0077"
+        ];
+      };
+
+      swapDevices = [ ];
+
+      nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
+      hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
     };
-
-  boot.initrd.luks.devices."p_luks".device = "/dev/mapper/vg_main-lv_main";
-
-  fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/43ED-F8A3";
-      fsType = "vfat";
-      options = [ "noatime" "fmask=0077" "dmask=0077" ];
-    };
-
-  swapDevices = [ ];
-
-  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-  hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
-};
 }

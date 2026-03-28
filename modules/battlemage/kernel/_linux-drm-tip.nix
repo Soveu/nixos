@@ -3,32 +3,39 @@
   buildLinux,
   src,
   ...
-} @ args:
+}@args:
 let
   version = "7.0.0-rc5";
 
   leanExtraConfig = import ./_lean-extra-config.nix { inherit lib; };
 
-  structuredExtraConfig = with lib.kernel; leanExtraConfig // {
-    # FRAMEBUFFER_CONSOLE = lib.mkForce unset;
-    # FRAMEBUFFER_CONSOLE_DEFERRED_TAKEOVER = lib.mkForce unset;
-    # FRAMEBUFFER_CONSOLE_DETECT_PRIMARY = lib.mkForce unset;
-    # FRAMEBUFFER_CONSOLE_ROTATION = lib.mkForce unset;
-    # VT = no;
+  structuredExtraConfig =
+    with lib.kernel;
+    leanExtraConfig
+    // {
+      # FRAMEBUFFER_CONSOLE = lib.mkForce unset;
+      # FRAMEBUFFER_CONSOLE_DEFERRED_TAKEOVER = lib.mkForce unset;
+      # FRAMEBUFFER_CONSOLE_DETECT_PRIMARY = lib.mkForce unset;
+      # FRAMEBUFFER_CONSOLE_ROTATION = lib.mkForce unset;
+      # VT = no;
 
-    NTSYNC = yes;
+      NTSYNC = yes;
 
-    PREEMPT_NONE = lib.mkForce unset;
-    PREEMPT_VOLUNTARY = lib.mkForce unset;
-    PREEMPT = lib.mkForce no;
-    PREEMPT_DYNAMIC = lib.mkForce no;
-    PREEMPT_LAZY = yes;
-  };
+      PREEMPT_NONE = lib.mkForce unset;
+      PREEMPT_VOLUNTARY = lib.mkForce unset;
+      PREEMPT = lib.mkForce no;
+      PREEMPT_DYNAMIC = lib.mkForce no;
+      PREEMPT_LAZY = yes;
+    };
 in
-buildLinux (args // {
-  inherit version src;
-  modDirVersion = version;
-  extraMeta.branch = "drm-tip";
+buildLinux (
+  args
+  // {
+    inherit version src;
+    modDirVersion = version;
+    extraMeta.branch = "drm-tip";
 
-  inherit structuredExtraConfig;
-} // (args.argsOverride or {}))
+    inherit structuredExtraConfig;
+  }
+  // (args.argsOverride or { })
+)
