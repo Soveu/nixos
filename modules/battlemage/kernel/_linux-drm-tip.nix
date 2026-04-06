@@ -5,7 +5,7 @@
   ...
 }@args:
 let
-  version = "7.0.0-rc5";
+  version = "7.0.0-rc6";
 
   leanExtraConfig = import ./_lean-extra-config.nix { inherit lib; };
 
@@ -23,9 +23,10 @@ let
 
       PREEMPT_NONE = lib.mkForce unset;
       PREEMPT_VOLUNTARY = lib.mkForce unset;
-      PREEMPT = lib.mkForce no;
       PREEMPT_DYNAMIC = lib.mkForce no;
-      PREEMPT_LAZY = yes;
+
+      PREEMPT_LAZY = lib.mkForce no;
+      PREEMPT = lib.mkForce yes;
     };
 in
 buildLinux (
