@@ -52,6 +52,7 @@
           pkgs.dpkg
           pkgs.man-pages-posix
           pkgs.vulkan-tools
+          pkgs.gnomeExtensions.solaar-extension
 
           pkgs.gcc15
           pkgs.python3
