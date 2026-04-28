@@ -73,6 +73,7 @@
     in
     {
       boot.kernelPackages = finalPackage;
+      # boot.kernelPackages = pkgs.linuxPackages_latest;
       boot.blacklistedKernelModules = [ "i915" ];
       boot.kernelParams = [ "i915.modeset=0" ];
       environment.systemPackages = [ finalPackage.cpupower ];

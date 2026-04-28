@@ -36,8 +36,6 @@
         };
 
         home.packages = [
-          pkgs.ungoogled-chromium
-          pkgs.libreoffice
           pkgs.vlc
           pkgs.crosspipe
           pkgs.desmume
@@ -47,13 +45,10 @@
           pkgs.btop
           pkgs.gitFull
           pkgs.gimp3-with-plugins
-          pkgs.gdb
           pkgs.ripgrep
           pkgs.nixfmt
-          pkgs.dpkg
           pkgs.man-pages-posix
           pkgs.vulkan-tools
-          pkgs.gnomeExtensions.solaar-extension
 
           pkgs.gcc15
           pkgs.python3
