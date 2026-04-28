@@ -41,6 +41,7 @@
           pkgs.vlc
           pkgs.crosspipe
           pkgs.desmume
+          pkgs.transmission_4-gtk
 
           pkgs.alacritty
           pkgs.btop
