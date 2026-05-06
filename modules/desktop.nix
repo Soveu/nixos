@@ -12,8 +12,28 @@
       ...
     }:
     let
+      de = "kde";
+      useGnome = (de == "gnome");
+      useCosmic = (de == "cosmic");
+      useKde = (de == "kde");
+
+      dePkgs = with pkgs; {
+        gnome = [
+          gnome-secrets
+          gnome-characters
+          gnome-tweaks
+          loupe
+        ];
+
+        cosmic = [
+          gnome-secrets
+          gnome-characters
+        ];
+
+        kde = [];
+      };
+
       username = "soveu";
-      useCosmic = false; # https://github.com/NixOS/nixpkgs/pull/502494
       imageFormats = [
         "png"
         "gif"
@@ -45,11 +65,15 @@
         variant = "";
       };
 
-      services.displayManager.gdm.enable = !useCosmic;
-      services.desktopManager.gnome.enable = !useCosmic;
+      services.displayManager.gdm.enable = useGnome;
+      services.desktopManager.gnome.enable = useGnome;
+
       services.displayManager.cosmic-greeter.enable = useCosmic;
       services.desktopManager.cosmic.enable = useCosmic;
       services.desktopManager.cosmic.xwayland.enable = useCosmic;
+
+      services.displayManager.plasma-login-manager.enable = useKde;
+      services.desktopManager.plasma6.enable = useKde;
 
       services.pulseaudio.enable = false;
       security.rtkit.enable = true;
@@ -70,24 +94,12 @@
         terminus_font
       ];
 
-      environment.systemPackages = [
-        pkgs.gnome-secrets
-        pkgs.gnome-characters
-      ]
-      ++ (
-        if useCosmic then
-          [ ]
-        else
-          [
-            pkgs.gnome-tweaks
-            pkgs.loupe
-          ]
-      );
+      environment.systemPackages = dePkgs."${de}";
 
-      # TODO: how does cosmic handle this?
-      xdg.mime.defaultApplications = {
-        "application/pdf" = "firefox.desktop";
-      }
-      // defaultImageApp;
+      # TODO: how does cosmic/kde handle this?
+      # xdg.mime.defaultApplications = {
+      #   "application/pdf" = "firefox.desktop";
+      # }
+      # // defaultImageApp;
     };
 }

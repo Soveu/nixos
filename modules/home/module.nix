@@ -4,6 +4,8 @@
   ...
 }:
 {
+  imports = [ inputs.home-manager.flakeModules.home-manager ];
+
   flake.nixosModules.home =
     {
       config,
@@ -21,11 +23,15 @@
       home-manager.useGlobalPkgs = true;
       home-manager.verbose = true;
       home-manager.backupFileExtension = "bak";
+      home-manager.sharedModules = [
+        inputs.plasma-manager.homeModules.plasma-manager
+      ];
 
       home-manager.users."${username}" = {
         imports = [
           ./_dconf.nix
           self.homeModules.home-vim
+          self.homeModules.home-kde
         ];
 
         programs.fish = {
