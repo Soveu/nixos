@@ -13,14 +13,14 @@
     }:
     {
       programs.plasma.enable = true;
-      # programs.plasma.immutableByDefault = true;
+      programs.plasma.immutableByDefault = true;
       # programs.plasma.input
 
       programs.plasma.configFile = {
         plasma-localerc.Formats.LANG = "en_US.UTF-8";
         plasmarc.Theme.name = "breeze-dark";
-        kdeglobals.QtQuickRendererSettings.RenderLoop = "threaded";
-        kdeglobals.QtQuickRendererSettings.SceneGraphBackend = "vulkan";
+        kdeglobals.QtQuickRendererSettings.RenderLoop = "basic";
+        kdeglobals.QtQuickRendererSettings.SceneGraphBackend = "opengl";
       };
 
       programs.plasma.workspace = {
