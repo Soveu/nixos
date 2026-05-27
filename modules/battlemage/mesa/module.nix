@@ -21,7 +21,7 @@
               buildInputs = prev.mesa.buildInputs ++ [ prev.libdisplay-info ];
             }).override
               {
-                stdenv = final.withCFlags [ "-march=znver5" "-mtune=znver5" ] final.gcc15Stdenv;
+                stdenv = final.withCFlags [ "-march=znver5" "-mtune=znver5" ] final.gcc16Stdenv;
                 galliumDrivers = [
                   "iris"
                   "llvmpipe"

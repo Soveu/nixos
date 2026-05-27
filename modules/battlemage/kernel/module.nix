@@ -11,7 +11,7 @@
       ...
     }:
     let
-      customStdenv = pkgs.withCFlags [ "-march=znver5" "-mtune=znver5" ] pkgs.gcc15Stdenv;
+      customStdenv = pkgs.withCFlags [ "-march=znver5" "-mtune=znver5" ] pkgs.gcc16Stdenv;
       linux_drm_tip = pkgs.callPackage ./_linux-drm-tip.nix {
         stdenv = customStdenv;
         src = inputs.git-linux;
