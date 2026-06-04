@@ -3,6 +3,7 @@
 }:
 let
   _force_unset = [
+    "X86_AMD_PSTATE_DYNAMIC_EPP"
     "MLX5_CORE_EN"
     "HAMRADIO"
     "AX25"

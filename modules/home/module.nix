@@ -46,6 +46,7 @@
           pkgs.crosspipe
           pkgs.desmume
           pkgs.transmission_4-gtk
+          pkgs.keepassxc
 
           pkgs.alacritty
           pkgs.btop

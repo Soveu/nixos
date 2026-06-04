@@ -21,11 +21,11 @@
     "git-linux": {
       "flake": false,
       "locked": {
-        "lastModified": 1779897677,
-        "narHash": "sha256-BhXD1Ztuiaq9D+INWovgQWFfBr34vnHG1fbd5dXXT+M=",
+        "lastModified": 1780584637,
+        "narHash": "sha256-POFcdvjpZ1rJ7kk9C7xoK3ZW5X6hSfZA9SiXk/wVXGc=",
         "ref": "refs/heads/drm-tip",
-        "rev": "11a8456527f00d86dc8b23035c324da194fbbadb",
-        "revCount": 1447651,
+        "rev": "406f3120fc73b6e2bd23e1884ca5e8dc05ccf9d3",
+        "revCount": 1448686,
         "type": "git",
         "url": "file:///stuff/foss/tip"
       },
@@ -37,11 +37,11 @@
     "git-mesa": {
       "flake": false,
       "locked": {
-        "lastModified": 1779905634,
-        "narHash": "sha256-B3s0S1PJ1fwZ8SnBA0G12+0k18RoSAqRY5mKaBlmhJc=",
+        "lastModified": 1780596559,
+        "narHash": "sha256-yzbGXK3PXVRPjYAAYGYdOjwbipYMdrZwN3207TZZ4JA=",
         "ref": "refs/heads/main",
-        "rev": "3800f465f5815e6d2a16116053754b3251b58666",
-        "revCount": 223091,
+        "rev": "364b5f806ccc7f27e97caef6a5abf995fb6c2b7f",
+        "revCount": 223758,
         "type": "git",
         "url": "file:///stuff/foss/mesa"
       },
@@ -57,11 +57,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1779726696,
-        "narHash": "sha256-/p37CB5n6Wpw250b0Lq0CYwNq2D8uGKzDoBulyLcQqA=",
+        "lastModified": 1780593650,
+        "narHash": "sha256-CHo7k65YTL3HY+WQVedDTupji+LMgNlKCdrtRHZFAK4=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "1a95e2efb477959b70b4a14c51035975c0481df6",
+        "rev": "447fd9ff62501dae7206dfe180ee89f8de27b7d5",
         "type": "github"
       },
       "original": {
@@ -87,11 +87,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1779560665,
-        "narHash": "sha256-tpyBcxPpcQb8ukyNF7DoCwfSY3VPsxHoYwj00Cayv5o=",
+        "lastModified": 1780243769,
+        "narHash": "sha256-x5UQuRsH3MqI0U9afaXSNqzTPSeZlRLvFAav2Ux1pNw=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "64c08a7ca051951c8eae34e3e3cb1e202fe36786",
+        "rev": "331800de5053fcebacf6813adb5db9c9dca22a0c",
         "type": "github"
       },
       "original": {
