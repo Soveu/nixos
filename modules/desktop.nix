@@ -95,6 +95,7 @@
       ];
 
       environment.systemPackages = dePkgs."${de}";
+      programs.kdeconnect.enable = true;
 
       # TODO: how does cosmic/kde handle this?
       # xdg.mime.defaultApplications = {
