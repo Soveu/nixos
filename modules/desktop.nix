@@ -30,7 +30,11 @@
           gnome-characters
         ];
 
-        kde = [];
+        kde = [
+          kdePackages.oxygen
+          kdePackages.oxygen-icons
+          kdePackages.oxygen-sounds
+        ];
       };
 
       username = "soveu";

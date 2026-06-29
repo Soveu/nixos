@@ -16,6 +16,7 @@
       services.fwupd.enable = true;
 
       environment.systemPackages = with pkgs; [
+        ntfsprogs-plus
         eog
         gitFull
         wget

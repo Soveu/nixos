@@ -14,7 +14,7 @@
     {
       boot.initrd.systemd.enable = true;
       boot.initrd.verbose = false;
-      boot.consoleLogLevel = 0;
+      # boot.consoleLogLevel = 0;
       boot.plymouth.enable = true;
 
       services.kmscon = {
@@ -32,7 +32,7 @@
         "plymouth.ignore-serial-consoles"
         "plymouth.nolog"
         "quiet"
-        "udev.log_priority=3"
+        # "udev.log_priority=3"
 
         "split_lock_detect=off"
         "page_poison=0"

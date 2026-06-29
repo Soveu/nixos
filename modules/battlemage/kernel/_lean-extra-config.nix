@@ -3,6 +3,9 @@
 }:
 let
   _force_unset = [
+    "CRYPTO_DRBG_CTR"
+    "CRYPTO_DRBG_HASH"
+    "RANDOM_KMALLOC_CACHES"
     "X86_AMD_PSTATE_DYNAMIC_EPP"
     "MLX5_CORE_EN"
     "HAMRADIO"
