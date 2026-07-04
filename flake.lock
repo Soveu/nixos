@@ -21,10 +21,11 @@
     "git-linux": {
       "flake": false,
       "locked": {
-        "lastModified": 1781449118,
-        "narHash": "sha256-bKQiHEhaxinMh2ykjR/thBzkH1ts08IHLSg19BbvdaU=",
-        "rev": "8cd9520d35a6c38db6567e97dd93b1f11f185dc6",
-        "revCount": 1447327,
+        "lastModified": 1783154128,
+        "narHash": "sha256-c14YyHh49hnK8DoG74dMZr65yIF37yuqbjwUacuWNro=",
+        "ref": "refs/heads/drm-tip",
+        "rev": "7f15fa27122a00a78e7bc2722748bb303adbbb99",
+        "revCount": 1462498,
         "type": "git",
         "url": "file:///stuff/foss/tip"
       },
