@@ -47,6 +47,9 @@
           pkgs.mangohud
           gottaGoFast
         ];
+        extraCompatPackages = [
+          pkgs.proton-ge-bin
+        ];
         dedicatedServer.openFirewall = true;
       };
     };
