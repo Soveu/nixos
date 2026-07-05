@@ -49,11 +49,17 @@ in
 buildLinux (
   args
   // {
-    inherit version src;
+    inherit version src structuredExtraConfig;
     modDirVersion = version;
     extraMeta.branch = "drm-tip";
 
-    inherit structuredExtraConfig;
+    kernelPatches = [
+      {
+        name = "infinity-scheduler";
+        # Cannot use patches for 7.1 from github, had to make a custom one
+        patch =  ./infinity-scheduler.patch;
+      }
+    ];
   }
   // (args.argsOverride or { })
 )

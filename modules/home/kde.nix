@@ -20,7 +20,7 @@
         plasma-localerc.Formats.LANG = "en_US.UTF-8";
         plasmarc.Theme.name = "breeze-dark";
         kdeglobals.QtQuickRendererSettings.RenderLoop = "basic";
-        kdeglobals.QtQuickRendererSettings.SceneGraphBackend = "opengl";
+        kdeglobals.QtQuickRendererSettings.SceneGraphBackend = "vulkan";
       };
 
       programs.plasma.workspace = {

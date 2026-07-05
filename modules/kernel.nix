@@ -19,11 +19,7 @@
 
       services.kmscon = {
         enable = true;
-        hwRender = true;
-      };
-      services.scx = {
-        enable = true;
-        scheduler = "scx_lavd";
+        config.hwaccel = true;
       };
 
       boot.kernelParams = [
