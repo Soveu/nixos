@@ -19,6 +19,7 @@
               src = inputs.git-mesa;
               version = "26.2.0-devel";
               buildInputs = prev.mesa.buildInputs ++ [ prev.libdisplay-info ];
+              patches = prev.mesa.patches ++ [ ./format-error.patch ];
             }).override
               {
                 stdenv = final.withCFlags [ "-march=znver5" "-mtune=znver5" ] final.gcc15Stdenv;
