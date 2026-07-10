@@ -79,7 +79,9 @@
       environment.systemPackages = [ finalPackage.cpupower ];
 
       boot.kernelModules = undefault_kmods;
-      boot.initrd.availableKernelModules = undefault_kmods;
+      boot.initrd.availableKernelModules = undefault_kmods // {
+        "xhci-pci-prom21" = true;
+      };
       boot.initrd.kernelModules = undefault_kmods // {
         "xe" = true;
       };
