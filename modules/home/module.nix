@@ -41,25 +41,30 @@
           };
         };
 
-        home.packages = [
-          pkgs.vlc
-          pkgs.crosspipe
-          pkgs.desmume
-          pkgs.transmission_4-gtk
-          pkgs.keepassxc
+        home.packages = with pkgs; [
+          vlc
+          crosspipe
+          desmume
+          transmission_4-gtk
+          keepassxc
 
-          pkgs.alacritty
-          pkgs.btop
-          pkgs.gitFull
-          pkgs.gimp3-with-plugins
-          pkgs.ripgrep
-          pkgs.nixfmt
-          pkgs.man-pages-posix
-          pkgs.vulkan-tools
+          alacritty
+          btop
+          gitFull
+          gimp3-with-plugins
+          ripgrep
+          nixfmt
+          man-pages-posix
+          vulkan-tools
 
-          pkgs.gcc15
-          pkgs.python3
-          pkgs.rustup
+          gcc15
+          python3
+          rustup
+
+          orca-slicer
+          blender
+          # freecad https://github.com/NixOS/nixpkgs/issues/540609
+          appimage-run
         ];
 
         programs.git = {
