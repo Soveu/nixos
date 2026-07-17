@@ -17,7 +17,7 @@
           mesa =
             (prev.mesa.overrideAttrs {
               src = inputs.git-mesa;
-              version = "26.2.0-devel";
+              version = "26.3.0-devel";
               buildInputs = prev.mesa.buildInputs ++ [ prev.libdisplay-info ];
               patches = prev.mesa.patches ++ [ ./format-error.patch ];
             }).override

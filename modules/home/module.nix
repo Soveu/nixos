@@ -62,6 +62,7 @@
           rustup
 
           orca-slicer
+          prusa-slicer
           blender
           # freecad https://github.com/NixOS/nixpkgs/issues/540609
           appimage-run
