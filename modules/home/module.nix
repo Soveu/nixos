@@ -45,6 +45,7 @@
           vlc
           crosspipe
           desmume
+          melonds
           transmission_4-gtk
           keepassxc
 
