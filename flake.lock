@@ -5,11 +5,11 @@
         "nixpkgs-lib": "nixpkgs-lib"
       },
       "locked": {
-        "lastModified": 1785627969,
-        "narHash": "sha256-4dtXQk/NMePegK/nWp5NSeuZKLATItOq61lpEvmXqGw=",
+        "lastModified": 1787559586,
+        "narHash": "sha256-onL0VLf9vPllmT0H/OlURIU5r5t5WIEl7t4tVNKT0Nw=",
         "owner": "hercules-ci",
         "repo": "flake-parts",
-        "rev": "427bf4bd9435fdf21321c8cc628c24efc14c0f7a",
+        "rev": "9d0d87172c374f89da73c1cfe6d81ae62feac1f1",
         "type": "github"
       },
       "original": {
@@ -21,11 +21,11 @@
     "git-linux": {
       "flake": false,
       "locked": {
-        "lastModified": 1786957233,
-        "narHash": "sha256-1vEjTVVrUu1dan2JgGFvwNJRCXpBT6zi2lmbpV/t8Wk=",
+        "lastModified": 1787935013,
+        "narHash": "sha256-MOpUriN6NEJc0mloGr2MHAIuA7NcuAUCQDUUesIer/0=",
         "ref": "refs/heads/drm-tip",
-        "rev": "24a2127c5f2bce93dbb33cbbee84666272a5e716",
-        "revCount": 1467487,
+        "rev": "046bcac5ed22b09812cec3b0aef678195f1eae71",
+        "revCount": 1467778,
         "type": "git",
         "url": "file:///stuff/foss/tip"
       },
@@ -37,11 +37,11 @@
     "git-mesa": {
       "flake": false,
       "locked": {
-        "lastModified": 1786987265,
-        "narHash": "sha256-yO9g7DgdYtBBI1uEQutamnEJUtbRjma4+Wo9hBVcSdA=",
+        "lastModified": 1788086620,
+        "narHash": "sha256-OSWRHLJLq4M41YVVvFa07QMPLelzqxolUjHxF8KtpDo=",
         "ref": "refs/heads/main",
-        "rev": "d00b719c453d504b9b2a525aa1a68034059b0b67",
-        "revCount": 228069,
+        "rev": "29c5f0ad445246ba8352aee61702bc3b5887389d",
+        "revCount": 228703,
         "type": "git",
         "url": "file:///stuff/foss/mesa"
       },
@@ -57,11 +57,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1786988494,
-        "narHash": "sha256-nZcYMi4nJxjqp8atEWkowCtRQplS6RuzqIxcPUqG0CA=",
+        "lastModified": 1787797243,
+        "narHash": "sha256-8+Q7NOB7RPajRjA4pbCDLzqH+MTjnG9x6LUPLfL2joA=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "ec161155d76f7ec25404c0da2fa9f5f133f6ae4c",
+        "rev": "99c9ec63390f1d8c14d95d9e8b17cc29cfbd4e11",
         "type": "github"
       },
       "original": {
@@ -87,11 +87,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1786862985,
-        "narHash": "sha256-FBJRXmbGXiSUDvYEbfLYRkckayyZ6SK1UEqhCrIZ2Cs=",
+        "lastModified": 1787900134,
+        "narHash": "sha256-VYXO0XZlgj06dxJZRhrD3WoSsvq/c7+/Akyoa22pefw=",
         "ref": "refs/heads/nixos-unstable",
-        "rev": "e5bdc4a41d4c072fe1e3787eaa0320a384741d44",
-        "revCount": 1055335,
+        "rev": "83199d0d373dd3ac2b9a1996b1d0263f76ab7a4c",
+        "revCount": 1063296,
         "type": "git",
         "url": "file:///stuff/foss/nixpkgs"
       },
