@@ -16,6 +16,7 @@
       self.nixosModules.steam
       self.nixosModules.obs
       self.nixosModules.battlemage
+      self.nixosModules.podman
     ];
   };
 }
