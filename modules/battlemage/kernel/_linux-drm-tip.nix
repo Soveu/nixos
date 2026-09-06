@@ -5,7 +5,7 @@
   ...
 }@args:
 let
-  version = "7.2.0";
+  version = "7.3.0-rc1";
 
   leanExtraConfig = import ./_lean-extra-config.nix { inherit lib; };
 
@@ -37,10 +37,15 @@ buildLinux (
     extraMeta.branch = "drm-tip";
 
     kernelPatches = [
+      # Crashes, need to update
+      # {
+      #   name = "infinity-scheduler";
+      #   # Cannot use patches for 7.1 from github, had to make a custom one
+      #   patch =  ./infinity-scheduler.patch;
+      # }
       {
-        name = "infinity-scheduler";
-        # Cannot use patches for 7.1 from github, had to make a custom one
-        patch =  ./infinity-scheduler.patch;
+        name = "tmp";
+        patch =  ./rust_drm.patch;
       }
     ];
   }
