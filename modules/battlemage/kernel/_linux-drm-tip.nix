@@ -5,7 +5,7 @@
   ...
 }@args:
 let
-  version = "7.3.0-rc1";
+  version = "7.3.0-rc2";
 
   leanExtraConfig = import ./_lean-extra-config.nix { inherit lib; };
 
@@ -43,10 +43,6 @@ buildLinux (
       #   # Cannot use patches for 7.1 from github, had to make a custom one
       #   patch =  ./infinity-scheduler.patch;
       # }
-      {
-        name = "tmp";
-        patch =  ./rust_drm.patch;
-      }
     ];
   }
   // (args.argsOverride or { })
