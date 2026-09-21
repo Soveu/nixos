@@ -15,6 +15,7 @@
     }:
     let
       username = "soveu";
+      llm-agents = inputs.llm-agents.packages."${pkgs.stdenv.hostPlatform.system}";
     in
     {
       imports = [ inputs.home-manager.nixosModules.home-manager ];
@@ -67,6 +68,8 @@
           blender
           # freecad https://github.com/NixOS/nixpkgs/issues/540609
           appimage-run
+
+          llm-agents.dsh
         ];
 
         programs.git = {

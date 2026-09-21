@@ -17,6 +17,12 @@
       inputs.home-manager.follows = "home-manager";
     };
 
+    llm-agents = {
+      url = "github:numtide/llm-agents.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-parts.follows = "flake-parts";
+    };
+
     git-linux = {
       url = "git+file:///stuff/foss/tip";
       flake = false;
