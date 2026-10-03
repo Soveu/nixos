@@ -59,7 +59,7 @@
           man-pages-posix
           vulkan-tools
 
-          gcc15
+          gcc
           python3
           rustup
 
