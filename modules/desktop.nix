@@ -98,6 +98,21 @@
         terminus_font
       ];
 
+      fonts.fontconfig = {
+        enable = true;
+        antialias = true;
+
+        hinting = {
+          enable = true;
+          style = "slight";
+        };
+
+        subpixel = {
+          rgba = "none";
+          lcdfilter = "none";
+        };
+      };
+
       environment.systemPackages = dePkgs."${de}";
       programs.kdeconnect.enable = true;
 
