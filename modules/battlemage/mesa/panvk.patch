@@ -1,0 +1,75 @@
+commit 46db02bd73a8e8bdc5e23e41374c6b5d0bbfe11e
+Author: Soveu <marx.tomasz@gmail.com>
+Date:   Sun Oct 11 22:26:39 2026 +0200
+
+    Revert "panvk: Move device compatibility checks to kmod"
+    
+    This reverts commit 9e872e242754bdd3873a9663e12ab05aeea0aa96.
+
+diff --git a/src/panfrost/vulkan/panvk_instance.c b/src/panfrost/vulkan/panvk_instance.c
+index b519885525f..50ad406659f 100644
+--- a/src/panfrost/vulkan/panvk_instance.c
++++ b/src/panfrost/vulkan/panvk_instance.c
+@@ -140,6 +140,10 @@ panvk_physical_device_try_create(struct vk_instance *vk_instance,
+    struct panvk_instance *instance =
+       container_of(vk_instance, struct panvk_instance, vk);
+ 
++   if (!(drm_device->available_nodes & (1 << DRM_NODE_RENDER)) ||
++       drm_device->bustype != DRM_BUS_PLATFORM)
++      return VK_ERROR_INCOMPATIBLE_DRIVER;
++
+    struct panvk_physical_device *device =
+       vk_zalloc(&instance->vk.alloc, sizeof(*device), 8,
+                 VK_SYSTEM_ALLOCATION_SCOPE_INSTANCE);
+diff --git a/src/panfrost/vulkan/panvk_physical_device.c b/src/panfrost/vulkan/panvk_physical_device.c
+index 8625f23dcd4..1564148b109 100644
+--- a/src/panfrost/vulkan/panvk_physical_device.c
++++ b/src/panfrost/vulkan/panvk_physical_device.c
+@@ -77,12 +77,34 @@ create_kmod_dev(struct panvk_physical_device *device,
+                 const struct panvk_instance *instance, drmDevicePtr drm_device)
+ {
+    const char *path = drm_device->nodes[DRM_NODE_RENDER];
+-   int fd = open(path, O_RDWR | O_CLOEXEC);
++   drmVersionPtr version;
++   int fd;
++
++   fd = open(path, O_RDWR | O_CLOEXEC);
+    if (fd < 0) {
+       return panvk_errorf(instance, VK_ERROR_INCOMPATIBLE_DRIVER,
+-                          "failed to open device '%s'", path);
++                          "failed to open device %s", path);
++   }
++
++   version = drmGetVersion(fd);
++   if (!version) {
++      close(fd);
++      return panvk_errorf(instance, VK_ERROR_INCOMPATIBLE_DRIVER,
++                          "failed to query kernel driver version for device %s",
++                          path);
++   }
++
++   if (strcmp(version->name, "panfrost") && strcmp(version->name, "panthor")) {
++      drmFreeVersion(version);
++      close(fd);
++      return VK_ERROR_INCOMPATIBLE_DRIVER;
+    }
+ 
++   drmFreeVersion(version);
++
++   if (PANVK_DEBUG(STARTUP))
++      mesa_logi("Found compatible device '%s'.", path);
++
+    uint32_t flags = PAN_KMOD_DEV_FLAG_OWNS_FD;
+ 
+    if (PANVK_DEBUG(NO_USER_MMAP_SYNC))
+@@ -90,9 +112,7 @@ create_kmod_dev(struct panvk_physical_device *device,
+ 
+    device->kmod.dev = pan_kmod_dev_create(fd, flags, &instance->kmod.allocator);
+ 
+-   if (PANVK_DEBUG(STARTUP) && device->kmod.dev) {
+-      mesa_logi("Found compatible device '%s'.", path);
+-   } else if (!device->kmod.dev) {
++   if (!device->kmod.dev) {
+       close(fd);
+       return panvk_errorf(instance, VK_ERROR_OUT_OF_HOST_MEMORY,
+                           "cannot create device");
